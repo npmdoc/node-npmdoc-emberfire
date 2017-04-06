@@ -1,0 +1,185 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/firebase/emberfire/"
+
+    >emberfire (v2.0.6)</a>
+</h1>
+<h4>The officially supported Ember binding for Firebase</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.emberfire">module emberfire</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.emberfire.included">
+            function <span class="apidocSignatureSpan">emberfire.</span>included
+            <span class="apidocSignatureSpan">(app)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.emberfire.treeForVendor">
+            function <span class="apidocSignatureSpan">emberfire.</span>treeForVendor
+            <span class="apidocSignatureSpan">(tree)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">emberfire.</span>name</span>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.emberfire" id="apidoc.module.emberfire">module emberfire</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.emberfire.included" id="apidoc.element.emberfire.included">
+        function <span class="apidocSignatureSpan">emberfire.</span>included
+        <span class="apidocSignatureSpan">(app)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function included(app) {
+  this._super.included(app);
+
+  // make sure app is correctly assigned when being used as a nested addon
+  if (app.app) {
+    app = app.app;
+  }
+  this.app = app;
+
+  this.app.import(&#x27;vendor/firebase.amd.js&#x27;);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var Webpack = require(&#x27;broccoli-webpack&#x27;);
+var mergeTrees = require(&#x27;broccoli-merge-trees&#x27;);
+
+module.exports = {
+  name: &#x27;emberfire&#x27;,
+
+  included: function included(app) {
+this._super.<span class="apidocCodeKeywordSpan">included</span>(app);
+
+// make sure app is correctly assigned when being used as a nested addon
+if (app.app) {
+  app = app.app;
+}
+this.app = app;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.emberfire.treeForVendor" id="apidoc.element.emberfire.treeForVendor">
+        function <span class="apidocSignatureSpan">emberfire.</span>treeForVendor
+        <span class="apidocSignatureSpan">(tree)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">treeForVendor = function (tree) {
+  var trees = [];
+
+  var firebase;
+
+  try {
+    var resolve = require(&#x27;resolve&#x27;);
+    firebase = resolve.sync(&#x27;firebase/package.json&#x27;, {
+      basedir: this.project.root
+    });
+  } catch (e) {
+    firebase = require.resolve(&#x27;firebase/package.json&#x27;);
+  }
+
+  trees.push(new Webpack([
+    path.dirname(firebase)
+  ], {
+    entry: &#x27;./firebase-browser.js&#x27;,
+    output: {
+      library: &#x27;firebase&#x27;,
+      libraryTarget: &#x27;amd&#x27;,
+      filename: &#x27;firebase.amd.js&#x27;
+    }
+  }));
+
+  if (tree) {
+    trees.push(tree);
+  }
+
+  return mergeTrees(trees, { overwrite: true });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
