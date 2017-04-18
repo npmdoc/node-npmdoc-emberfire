@@ -1,9 +1,14 @@
-# api documentation for  [emberfire (v2.0.6)](https://github.com/firebase/emberfire/)  [![npm package](https://img.shields.io/npm/v/npmdoc-emberfire.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-emberfire) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-emberfire.svg)](https://travis-ci.org/npmdoc/node-npmdoc-emberfire)
+# npmdoc-emberfire
+
+#### api documentation for  [emberfire (v2.0.6)](https://github.com/firebase/emberfire/)  [![npm package](https://img.shields.io/npm/v/npmdoc-emberfire.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-emberfire) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-emberfire.svg)](https://travis-ci.org/npmdoc/node-npmdoc-emberfire)
+
 #### The officially supported Ember binding for Firebase
 
-[![NPM](https://nodei.co/npm/emberfire.png?downloads=true)](https://www.npmjs.com/package/emberfire)
+[![NPM](https://nodei.co/npm/emberfire.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/emberfire)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-emberfire/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-emberfire_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-emberfire/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-emberfire/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-emberfire/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-emberfire/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-emberfire/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-emberfire/build/screenCapture.npmPackageListing.svg)
 
@@ -112,13 +117,11 @@
     "license": "MIT",
     "maintainers": [
         {
-            "name": "firebase",
-            "email": "operations@firebase.com"
+            "name": "firebase"
         }
     ],
     "name": "emberfire",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/firebase/emberfire.git"
@@ -131,94 +134,6 @@
     },
     "version": "2.0.6"
 }
-```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module emberfire](#apidoc.module.emberfire)
-1.  [function <span class="apidocSignatureSpan">emberfire.</span>included (app)](#apidoc.element.emberfire.included)
-1.  [function <span class="apidocSignatureSpan">emberfire.</span>treeForVendor (tree)](#apidoc.element.emberfire.treeForVendor)
-1.  string <span class="apidocSignatureSpan">emberfire.</span>name
-
-
-
-# <a name="apidoc.module.emberfire"></a>[module emberfire](#apidoc.module.emberfire)
-
-#### <a name="apidoc.element.emberfire.included"></a>[function <span class="apidocSignatureSpan">emberfire.</span>included (app)](#apidoc.element.emberfire.included)
-- description and source-code
-```javascript
-function included(app) {
-  this._super.included(app);
-
-  // make sure app is correctly assigned when being used as a nested addon
-  if (app.app) {
-    app = app.app;
-  }
-  this.app = app;
-
-  this.app.import('vendor/firebase.amd.js');
-}
-```
-- example usage
-```shell
-...
-var Webpack = require('broccoli-webpack');
-var mergeTrees = require('broccoli-merge-trees');
-
-module.exports = {
-  name: 'emberfire',
-
-  included: function included(app) {
-this._super.included(app);
-
-// make sure app is correctly assigned when being used as a nested addon
-if (app.app) {
-  app = app.app;
-}
-this.app = app;
-...
-```
-
-#### <a name="apidoc.element.emberfire.treeForVendor"></a>[function <span class="apidocSignatureSpan">emberfire.</span>treeForVendor (tree)](#apidoc.element.emberfire.treeForVendor)
-- description and source-code
-```javascript
-treeForVendor = function (tree) {
-  var trees = [];
-
-  var firebase;
-
-  try {
-    var resolve = require('resolve');
-    firebase = resolve.sync('firebase/package.json', {
-      basedir: this.project.root
-    });
-  } catch (e) {
-    firebase = require.resolve('firebase/package.json');
-  }
-
-  trees.push(new Webpack([
-    path.dirname(firebase)
-  ], {
-    entry: './firebase-browser.js',
-    output: {
-      library: 'firebase',
-      libraryTarget: 'amd',
-      filename: 'firebase.amd.js'
-    }
-  }));
-
-  if (tree) {
-    trees.push(tree);
-  }
-
-  return mergeTrees(trees, { overwrite: true });
-}
-```
-- example usage
-```shell
-n/a
 ```
 
 
